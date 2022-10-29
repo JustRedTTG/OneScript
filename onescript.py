@@ -31,7 +31,7 @@ g.resize((400, 400))
 
 resolution, frames = save.load(os.path.realpath(file+'bad_apple_data'))
 g.resize((resolution))
-terminal.font((4, 4))
+terminal.font((2, 2))
 g.clear()
 
 # Bad apple
