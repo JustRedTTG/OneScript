@@ -53,8 +53,3 @@ def convert(color):
 for frame in frames:
     for line in frame['lines']:
         g.straight_line(line[0], line[1], line[2]-line[0], convert(line[4]))
-
-input()
-g.clear()
-
-input()
