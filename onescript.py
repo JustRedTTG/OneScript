@@ -2,6 +2,7 @@ import importlib.util
 import os
 import time
 import datetime
+from random import randint
 
 file = __file__+':'
 # The magic
@@ -29,7 +30,9 @@ g.resize((400, 400))
 
 # SCREEN SIZE
 
-resolution, frames = save.load(os.path.realpath(file+'bad_apple_data'))
+print('Loading data...')
+resolution, frames, colors = save.load(os.path.realpath(file+'bad_apple_data'))
+g.clear()
 g.resize((resolution))
 terminal.font((2, 2))
 g.clear()
@@ -43,13 +46,11 @@ i = 0
 g.line(1, 1, resolution[0], resolution[1], *resolution)
 g.line(1, resolution[1], resolution[0], 1, *resolution)
 
-
-def convert(color):
-    if sum(color) / 3 > 127:
-        return g.white
-    else:
-        return g.black
+colors_converted = [g.rgb_convert(color)[0] for color in colors]
 
 for frame in frames:
     for line in frame['lines']:
-        g.straight_line(line[0], line[1], line[2]-line[0], convert(line[4]))
+        # Use this to make the playback speed better but skip a few lines making it noisy
+        # if randint(0, 2) == 0:
+        #     continue
+        g.straight_line(line[0], line[1], line[2] - line[0], colors_converted[line[4]])
